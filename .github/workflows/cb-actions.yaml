@@ -107,10 +107,19 @@ jobs:
           fi
 
       - name: Run Coverage
+        env:
+          CBSTORE_ROOT: ${{ github.workspace }}/integration-test
+          CBLOG_ROOT: ${{ github.workspace }}/integration-test
+          APP_ROOT: ${{ github.workspace }}/integration-test
+          SPIDER_URL: http://localhost:31024/spider
+          TUMBLEBUG_URL: http://localhost:31323/tumblebug
+          BASE_PATH: /ladybug
+          API_USERNAME: default
+          API_PASSWORD: default
+          GOLANG_PROTOBUF_REGISTRATION_CONFLICT: ignore
         run: |
           pwd
           cd ./integration-test
-          source ./test.env
           (go test -p 1 -v -coverpkg=$(go list ../... | grep -v integration-test | grep -v protobuf | tr "\n" ",")  -coverprofile=../outputs/coverage.txt ./... > ../outputs/coverage.err 2>&1; echo $? > ../outputs/coverage.check ) || true
           if [ -f "../outputs/coverage.check" ] ; then
             echo "======= coverage.check ======="
