@@ -108,11 +108,8 @@ jobs:
 
       - name: Run Coverage
         run: |
-          echo 'ls result======'
-          ls
+          pwd
           cd ./integration-test
-          echo 'ls result======'
-          ls
           source ./test.env
           (go test -p 1 -v -coverpkg=$(go list ../... | grep -v integration-test | grep -v protobuf | tr "\n" ",")  -coverprofile=../outputs/coverage.txt ./... > ../outputs/coverage.err 2>&1; echo $? > ../outputs/coverage.check ) || true
           if [ -f "../outputs/coverage.check" ] ; then
