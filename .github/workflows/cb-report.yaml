@@ -416,7 +416,7 @@ jobs:
           git remote add origin https://github.com/jmleefree/pagetest1.git
           git add .
           git commit -m 'add report'
-          git push -p origin main
+          git push -u origin main
 
       - name: Publish Summary Results(PR)
         if: ${{ github.event.workflow_run.event == 'pull_request' }}
