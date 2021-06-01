@@ -412,10 +412,10 @@ jobs:
           git config --global user.email "jmleefree@ourtech.co.kr"
           git config --global user.name "jmleefree"
           git init
-          git remote add origin https://github.com/jmleefree/pagetest1.git
+          git remote add origin https://jmleefree@github.com/jmleefree/pagetest1.git
           git add ./cb-publish
           git commit -m 'add report'
-          git push origin HEAD:main
+          git push -u -f origin HEAD:main
 
       - name: Publish Summary Results(PR)
         if: ${{ github.event.workflow_run.event == 'pull_request' }}
