@@ -91,7 +91,11 @@ jobs:
           echo "docker ps =============="
           docker ps
           echo "docker compose up =============="
-          docker-compose -f ./docker-compose.yaml up
+          docker-compose -f ./docker-compose.yaml up -d
+
+          timeout 5m sh -c 'until nc -z $0 $1; do sleep 1; done' localhost 31024
+          timeout 5m sh -c 'until nc -z $0 $1; do sleep 1; done' localhost 31323
+
           echo "docker ps =============="
           docker ps
           echo "docker compose down =============="
