@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	gc "github.com/jmleefree/actiontest2/src/grpc-api/common"
 	tb_api "github.com/cloud-barista/cb-tumblebug/src/api/grpc/request"
+	gc "github.com/jmleefree/actiontest2/src/grpc-api/common"
 )
 
 // ===== [ Constants and Variables ] =====

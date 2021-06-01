@@ -6,8 +6,8 @@ package cbladybug
 import (
 	context "context"
 	fmt "fmt"
-	_ "github.com/jmleefree/actiontest2/src/grpc-api/protobuf/gogoproto"
 	proto "github.com/golang/protobuf/proto"
+	_ "github.com/jmleefree/actiontest2/src/grpc-api/protobuf/gogoproto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"

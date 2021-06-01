@@ -5,11 +5,11 @@ import (
 	"log"
 	"time"
 
-	"github.com/jmleefree/actiontest2/src/grpc-api/logger"
-	lb_api "github.com/jmleefree/actiontest2/src/grpc-api/request"
 	"github.com/cloud-barista/cb-spider/interface/api"
 	sp_api "github.com/cloud-barista/cb-spider/interface/api"
 	tb_api "github.com/cloud-barista/cb-tumblebug/src/api/grpc/request"
+	"github.com/jmleefree/actiontest2/src/grpc-api/logger"
+	lb_api "github.com/jmleefree/actiontest2/src/grpc-api/request"
 )
 
 //  Data Structure to contain user configuration

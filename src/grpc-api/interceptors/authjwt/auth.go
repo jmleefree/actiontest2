@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/jmleefree/actiontest2/src/grpc-api/logger"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/jmleefree/actiontest2/src/grpc-api/logger"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"

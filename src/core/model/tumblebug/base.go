@@ -7,10 +7,10 @@ import (
 	"net/http"
 
 	"github.com/beego/beego/v2/core/validation"
+	"github.com/go-resty/resty/v2"
 	"github.com/jmleefree/actiontest2/src/core/model"
 	"github.com/jmleefree/actiontest2/src/utils/app"
 	"github.com/jmleefree/actiontest2/src/utils/config"
-	"github.com/go-resty/resty/v2"
 
 	logger "github.com/sirupsen/logrus"
 )

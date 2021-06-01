@@ -5,8 +5,8 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/jmleefree/actiontest2/src/core/model"
 	"github.com/go-resty/resty/v2"
+	"github.com/jmleefree/actiontest2/src/core/model"
 
 	logger "github.com/sirupsen/logrus"
 )

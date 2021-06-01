@@ -32,6 +32,8 @@ import (
 	sshrun "github.com/cloud-barista/cb-spider/cloud-control-manager/vm-ssh"
 
 	"bou.ke/monkey"
+
+	"github.com/sirupsen/logrus"
 )
 
 type TestCases struct {
@@ -48,6 +50,8 @@ var (
 )
 
 func init() {
+	logrus.SetLevel(logrus.ErrorLevel)
+
 	lb_conf.Config.AppRootPath = flag.String("app-root", lang.NVL(os.Getenv("APP_ROOT"), ""), "application root path")
 	lb_conf.Config.RootURL = flag.String("root-url", lang.NVL(os.Getenv("BASE_URL"), "/ladybug"), "root url")
 	lb_conf.Config.SpiderUrl = flag.String("spider-url", lang.NVL(os.Getenv("SPIDER_URL"), "http://localhost:1024/spider"), "cb-spider service end-point url")
@@ -158,11 +162,9 @@ func setUpForGrpc() {
 			defer closer.Close()
 		}
 
-		fmt.Printf("======================grpc server start...\n")
 		if err := gs.Serve(listener); err != nil {
 			logger.Fatal("failed to serve: ", err)
 		}
-		fmt.Printf("======================grpc server stop...\n")
 	}()
 
 	time.Sleep(time.Second * 2)
@@ -224,7 +226,6 @@ func setUpForGrpc() {
 }
 
 func tearDownForGrpc() {
-	fmt.Printf("======================tearDownForGrpc start...\n")
 	mcar.Close()
 	gs.Stop()
 
@@ -235,5 +236,4 @@ func tearDownForGrpc() {
 	os.RemoveAll("../meta_db")
 
 	os.Stdout = holdStdout
-	fmt.Printf("======================tearDownForGrpc end...\n")
 }

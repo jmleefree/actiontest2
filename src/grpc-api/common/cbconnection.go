@@ -10,10 +10,10 @@ import (
 	"github.com/jmleefree/actiontest2/src/grpc-api/interceptors/jaegertracer"
 	"github.com/opentracing/opentracing-go"
 
-	grpc_accesslog "github.com/jmleefree/actiontest2/src/grpc-api/interceptors/accesslog"
-	grpc_authjwt "github.com/jmleefree/actiontest2/src/grpc-api/interceptors/authjwt"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_opentracing "github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
+	grpc_accesslog "github.com/jmleefree/actiontest2/src/grpc-api/interceptors/accesslog"
+	grpc_authjwt "github.com/jmleefree/actiontest2/src/grpc-api/interceptors/authjwt"
 
 	"github.com/jmleefree/actiontest2/src/grpc-api/config"
 )

@@ -12,11 +12,11 @@ import (
 
 	"github.com/jmleefree/actiontest2/src/grpc-api/interceptors/jaegertracer"
 
-	grpc_accesslog "github.com/jmleefree/actiontest2/src/grpc-api/interceptors/accesslog"
-	grpc_authjwt "github.com/jmleefree/actiontest2/src/grpc-api/interceptors/authjwt"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	grpc_opentracing "github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
+	grpc_accesslog "github.com/jmleefree/actiontest2/src/grpc-api/interceptors/accesslog"
+	grpc_authjwt "github.com/jmleefree/actiontest2/src/grpc-api/interceptors/authjwt"
 
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/prometheus/client_golang/prometheus"

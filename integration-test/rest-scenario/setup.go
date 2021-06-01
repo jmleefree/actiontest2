@@ -19,6 +19,8 @@ import (
 	"github.com/jmleefree/actiontest2/src/utils/lang"
 
 	sshrun "github.com/cloud-barista/cb-spider/cloud-control-manager/vm-ssh"
+
+	"github.com/sirupsen/logrus"
 )
 
 type TestCases struct {
@@ -38,6 +40,8 @@ var (
 )
 
 func init() {
+	logrus.SetLevel(logrus.ErrorLevel)
+
 	lb_conf.Config.AppRootPath = flag.String("app-root", lang.NVL(os.Getenv("APP_ROOT"), ""), "application root path")
 	lb_conf.Config.RootURL = flag.String("root-url", lang.NVL(os.Getenv("BASE_URL"), "/ladybug"), "root url")
 	lb_conf.Config.SpiderUrl = flag.String("spider-url", lang.NVL(os.Getenv("SPIDER_URL"), "http://localhost:1024/spider"), "cb-spider service end-point url")

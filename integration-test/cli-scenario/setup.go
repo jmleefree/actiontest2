@@ -16,6 +16,7 @@ import (
 	"github.com/jmleefree/actiontest2/src/core/service"
 	"github.com/jmleefree/actiontest2/src/grpc-api/config"
 	"github.com/jmleefree/actiontest2/src/grpc-api/logger"
+	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/test/bufconn"
 	"gopkg.in/resty.v1"
@@ -47,6 +48,8 @@ var (
 )
 
 func init() {
+	logrus.SetLevel(logrus.ErrorLevel)
+
 	lb_conf.Config.AppRootPath = flag.String("app-root", lang.NVL(os.Getenv("APP_ROOT"), ""), "application root path")
 	lb_conf.Config.RootURL = flag.String("root-url", lang.NVL(os.Getenv("BASE_URL"), "/ladybug"), "root url")
 	lb_conf.Config.SpiderUrl = flag.String("spider-url", lang.NVL(os.Getenv("SPIDER_URL"), "http://localhost:1024/spider"), "cb-spider service end-point url")
@@ -157,11 +160,9 @@ func setUpForCli() {
 			defer closer.Close()
 		}
 
-		fmt.Printf("======================grpc server start...\n")
 		if err := gs.Serve(listener); err != nil {
 			logger.Fatal("failed to serve: ", err)
 		}
-		fmt.Printf("======================grpc server stop...\n")
 	}()
 
 	time.Sleep(time.Second * 2)
@@ -223,7 +224,6 @@ func setUpForCli() {
 }
 
 func tearDownForCli() {
-	fmt.Printf("======================tearDownForGrpc start...\n")
 	mcar.Close()
 	gs.Stop()
 
@@ -234,5 +234,4 @@ func tearDownForCli() {
 	os.RemoveAll("../meta_db")
 
 	os.Stdout = holdStdout
-	fmt.Printf("======================tearDownForGrpc end...\n")
 }

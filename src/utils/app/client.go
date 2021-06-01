@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/jmleefree/actiontest2/src/utils/config"
 	"github.com/go-resty/resty/v2"
+	"github.com/jmleefree/actiontest2/src/utils/config"
 )
 
 func ExecutHTTP(method string, url string, body interface{}, result interface{}) (*resty.Response, error) {

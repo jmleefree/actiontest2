@@ -6,8 +6,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/jmleefree/actiontest2/src/utils/config"
 	ssh "github.com/cloud-barista/cb-spider/cloud-control-manager/vm-ssh"
+	"github.com/jmleefree/actiontest2/src/utils/config"
 
 	logger "github.com/sirupsen/logrus"
 )
