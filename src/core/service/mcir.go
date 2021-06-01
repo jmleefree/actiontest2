@@ -74,7 +74,7 @@ func (nodeConfigInfo *NodeConfigInfo) CreateImage(namespace string, clusterName 
 		return nil, e
 	}
 
-	imageName := fmt.Sprintf("%s-%s-Ubuntu1804", nodeConfigInfo.Connection, nodeConfigInfo.Region)
+	imageName := fmt.Sprintf("%s-%s-ubuntu1804", nodeConfigInfo.Connection, nodeConfigInfo.Region)
 	logger.Infof("start create image (name=%s)", imageName)
 	image := tumblebug.NewImage(namespace, imageName, nodeConfigInfo.Connection)
 	image.CspImageId = imageId
