@@ -43,6 +43,9 @@ jobs:
             console.log(context)
             var fs = require('fs');
 
+            //
+            // PR NUMBER LOADING
+            //
             var prNumber = 0
             if (fs.existsSync('./cb-artifact/pr_number.txt')) {
               prNumber = Number(fs.readFileSync('./cb-artifact/pr_number.txt', 'utf8'))
@@ -225,7 +228,7 @@ jobs:
             core.setOutput('errcheckLintCnt', errcheckLintCnt)  
             summaryReport += '- errcheck(lint) : ' + errcheckLintCnt + ' found\n'    
 
-            gofmtLintCnt = (gofmtlLintResultTxt.match(/(gofmt)/g) || []).length
+            gofmtLintCnt = (gofmtlLintResultTxt.match(/\(gofmt\)/g) || []).length
             console.log('gofmtLintCnt', gofmtLintCnt) 
             core.setOutput('gofmtLintCnt', gofmtLintCnt)  
             summaryReport += '- gofmt(lint) : ' + gofmtLintCnt + ' found\n'       
