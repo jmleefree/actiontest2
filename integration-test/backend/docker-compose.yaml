@@ -25,6 +25,7 @@ services:
       - SPIDER_REST_URL=http://cb-spider:1024/spider
       - API_USERNAME=default
       - API_PASSWORD=default
+      - GOLANG_PROTOBUF_REGISTRATION_CONFLICT=ignore
     networks:
       - cb-unit-net      
   
