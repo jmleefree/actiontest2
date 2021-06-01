@@ -74,14 +74,14 @@ jobs:
             core.setOutput('errchecklLintResultTxt', errchecklLintResultTxt) 
 
             //
-            // GOFMT LINT RESULT LOADING
+            // STATICCHECK LINT RESULT LOADING
             //             
-            var gofmtlLintResultTxt = ''
-            if (fs.existsSync('./cb-artifact/gofmt-lint-result.txt')) {
-              gofmtlLintResultTxt = fs.readFileSync('./cb-artifact/gofmt-lint-result.txt', 'utf8')
+            var staticcheckLintResultTxt = ''
+            if (fs.existsSync('./cb-artifact/staticcheck-lint-result.txt')) {
+              staticcheckLintResultTxt = fs.readFileSync('./cb-artifact/staticcheck-lint-result.txt', 'utf8')
             }
-            //console.log('gofmtlLintResultTxt', gofmtlLintResultTxt)  
-            core.setOutput('gofmtlLintResultTxt', gofmtlLintResultTxt)   
+            //console.log('staticcheckLintResultTxt', staticcheckLintResultTxt)  
+            core.setOutput('staticcheckLintResultTxt', staticcheckLintResultTxt)   
 
             //
             // REVIVE LINT RESULT LOADING
@@ -273,10 +273,10 @@ jobs:
             core.setOutput('errcheckLintCnt', errcheckLintCnt)  
             summaryReport += '- errcheck(lint) : ' + errcheckLintCnt + ' found\n'    
 
-            gofmtLintCnt = (gofmtlLintResultTxt.match(/\(gofmt\)/g) || []).length
-            console.log('gofmtLintCnt', gofmtLintCnt) 
-            core.setOutput('gofmtLintCnt', gofmtLintCnt)  
-            summaryReport += '- gofmt(lint) : ' + gofmtLintCnt + ' found\n'       
+            staticcheckLintCnt = (staticcheckLintResultTxt.match(/\(staticcheck\)/g) || []).length
+            console.log('staticcheckLintCnt', staticcheckLintCnt) 
+            core.setOutput('staticcheckLintCnt', staticcheckLintCnt)  
+            summaryReport += '- staticcheck(lint) : ' + staticcheckLintCnt + ' found\n'       
 
             reviveLintCnt = (revivelLintResultTxt.match(/\(revive\)/g) || []).length
             console.log('reviveLintCnt', reviveLintCnt) 
@@ -363,9 +363,9 @@ jobs:
             publishReport.lint.errcheck = {}
             publishReport.lint.errcheck.cnt = errcheckLintCnt
             publishReport.lint.errcheck.details = errchecklLintResultTxt   
-            publishReport.lint.gofmt = {}
-            publishReport.lint.gofmt.cnt = gofmtLintCnt
-            publishReport.lint.gofmt.details = gofmtlLintResultTxt      
+            publishReport.lint.staticcheck = {}
+            publishReport.lint.staticcheck.cnt = staticcheckLintCnt
+            publishReport.lint.staticcheck.details = staticcheckLintResultTxt      
             publishReport.lint.revive = {}
             publishReport.lint.revive.cnt = reviveLintCnt
             publishReport.lint.revive.details = revivelLintResultTxt    

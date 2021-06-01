@@ -61,7 +61,7 @@ jobs:
         run: |
           golangci-lint run --config ./.github/.golangci.yaml --disable-all -E deadcode | tee ./outputs/deadcode-lint-result.txt
           golangci-lint run --config ./.github/.golangci.yaml --disable-all -E errcheck | tee ./outputs/errcheck-lint-result.txt
-          golangci-lint run --config ./.github/.golangci.yaml --disable-all -E gofmt | tee ./outputs/gofmt-lint-result.txt
+          golangci-lint run --config ./.github/.golangci.yaml --disable-all -E staticcheck | tee ./outputs/staticcheck-lint-result.txt
           golangci-lint run --config ./.github/.golangci.yaml --disable-all -E revive | tee ./outputs/revive-lint-result.txt
 
           if [ -f "./outputs/deadcode-lint-result.txt" ] ; then
@@ -72,9 +72,9 @@ jobs:
             echo "======= errcheck-lint-result.txt ======="
             cat ./outputs/errcheck-lint-result.txt
           fi
-          if [ -f "./outputs/gofmt-lint-result.txt" ] ; then
-            echo "======= gofmt-lint-result.txt ======="
-            cat ./outputs/gofmt-lint-result.txt
+          if [ -f "./outputs/staticcheck-lint-result.txt" ] ; then
+            echo "======= staticcheck-lint-result.txt ======="
+            cat ./outputs/staticcheck-lint-result.txt
           fi  
           if [ -f "./outputs/revive-lint-result.txt" ] ; then
             echo "======= revive-lint-result.txt ======="
