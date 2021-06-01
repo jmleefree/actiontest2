@@ -322,6 +322,9 @@ jobs:
           push: true
           tags: |
             ${{ steps.prep.outputs.ghcr-tags }}
+          #tags: |
+          #  ${{ steps.prep.outputs.docker-tags }}
+          #  ${{ steps.prep.outputs.ghcr-tags }}          
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
