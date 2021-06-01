@@ -410,6 +410,8 @@ jobs:
       - name: Publish generated content without github clone
         run: |
           cd cb-publish
+          git config --global user.email "jmleefree@ourtech.co.kr"
+          git config --global user.name "jmleefree"
           git init
           git remote add origin https://github.com/jmleefree/pagetest1.git
           git add .
