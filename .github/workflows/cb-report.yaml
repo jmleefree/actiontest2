@@ -50,180 +50,225 @@ jobs:
             if (fs.existsSync('./cb-artifact/pr_number.txt')) {
               prNumber = Number(fs.readFileSync('./cb-artifact/pr_number.txt', 'utf8'))
             }
-            console.log('prNumber', prNumber)
+            //console.log('prNumber', prNumber)
             core.setOutput('prNumber', prNumber)
 
+            //
+            // DEADCODE LINT RESULT LOADING
+            //
             var deadcodelLintResultTxt = ''
             if (fs.existsSync('./cb-artifact/deadcode-lint-result.txt')) {
               deadcodelLintResultTxt = fs.readFileSync('./cb-artifact/deadcode-lint-result.txt', 'utf8')
             }
-            console.log('deadcodelLintResultTxt', deadcodelLintResultTxt)  
+            //console.log('deadcodelLintResultTxt', deadcodelLintResultTxt)  
             core.setOutput('deadcodelLintResultTxt', deadcodelLintResultTxt)
 
+            //
+            // ERRCHECK LINT RESULT LOADING
+            //            
             var errchecklLintResultTxt = ''
             if (fs.existsSync('./cb-artifact/errcheck-lint-result.txt')) {
               errchecklLintResultTxt = fs.readFileSync('./cb-artifact/errcheck-lint-result.txt', 'utf8')
             }
-            console.log('errchecklLintResultTxt', errchecklLintResultTxt)  
+            //console.log('errchecklLintResultTxt', errchecklLintResultTxt)  
             core.setOutput('errchecklLintResultTxt', errchecklLintResultTxt) 
 
+            //
+            // GOFMT LINT RESULT LOADING
+            //             
             var gofmtlLintResultTxt = ''
             if (fs.existsSync('./cb-artifact/gofmt-lint-result.txt')) {
               gofmtlLintResultTxt = fs.readFileSync('./cb-artifact/gofmt-lint-result.txt', 'utf8')
             }
-            console.log('gofmtlLintResultTxt', gofmtlLintResultTxt)  
+            //console.log('gofmtlLintResultTxt', gofmtlLintResultTxt)  
             core.setOutput('gofmtlLintResultTxt', gofmtlLintResultTxt)   
 
+            //
+            // REVIVE LINT RESULT LOADING
+            //             
             var revivelLintResultTxt = ''
             if (fs.existsSync('./cb-artifact/revive-lint-result.txt')) {
               revivelLintResultTxt = fs.readFileSync('./cb-artifact/revive-lint-result.txt', 'utf8')
             }
-            console.log('revivelLintResultTxt', revivelLintResultTxt)  
+            //console.log('revivelLintResultTxt', revivelLintResultTxt)  
             core.setOutput('revivelLintResultTxt', revivelLintResultTxt)    
 
-            var coverageCheck = 0
-            if (fs.existsSync('./cb-artifact/coverage.check')) {
-              coverageCheck = Number(fs.readFileSync('./cb-artifact/coverage.check', 'utf8'))
-            }
-            console.log('coverageCheck', coverageCheck)  
-            core.setOutput('coverageCheck', coverageCheck)   
-
+            //
+            // UNIT TEST RESULT LOADING
+            //              
             var unitTestXml = ''
             if (fs.existsSync('./cb-artifact/unit-tests.xml')) {
               unitTestXml = fs.readFileSync('./cb-artifact/unit-tests.xml', 'utf8')
             }
-            console.log('unitTestXml', unitTestXml)  
+            //console.log('unitTestXml', unitTestXml)  
             core.setOutput('unitTestXml', unitTestXml)  
 
-            var coverageErr = ''
-            if (fs.existsSync('./cb-artifact/coverage.err')) {
-              coverageErr = fs.readFileSync('./cb-artifact/coverage.err', 'utf8')
+            //
+            // COVERAGE CHECK RESULT LOADING
+            //             
+            var coverageCheck = 0
+            if (fs.existsSync('./cb-artifact/coverage.check')) {
+              coverageCheck = Number(fs.readFileSync('./cb-artifact/coverage.check', 'utf8'))
             }
-            console.log('coverageErr', coverageErr) 
-            core.setOutput('coverageErr', coverageErr)    
+            //console.log('coverageCheck', coverageCheck)  
+            core.setOutput('coverageCheck', coverageCheck)   
 
+            //
+            // COVERAGE LOG RESULT LOADING
+            //             
+            var coverageLog = ''
+            if (fs.existsSync('./cb-artifact/coverage.log')) {
+              coverageLog = fs.readFileSync('./cb-artifact/coverage.log', 'utf8')
+            }
+            //console.log('coverageLog', coverageLog) 
+            core.setOutput('coverageLog', coverageLog)    
+
+            //
+            // COVERAGE TXT RESULT LOADING
+            // 
             var coverageTxt = ''
             if (fs.existsSync('./cb-artifact/coverage.txt')) {
               coverageTxt = fs.readFileSync('./cb-artifact/coverage.txt', 'utf8')
             }
-            console.log('coverageTxt', coverageTxt) 
+            //console.log('coverageTxt', coverageTxt) 
             core.setOutput('coverageTxt', coverageTxt)    
 
+            //
+            // BUILD CHECK RESULT LOADING
+            // 
             var buildCheck = 0
             if (fs.existsSync('./cb-artifact-1.15/build.check.1.15')) {
               var buildCheckTmp = Number(fs.readFileSync('./cb-artifact-1.15/build.check.1.15', 'utf8'))
-              console.log('buildCheck.1.15', buildCheckTmp)   
+              //console.log('buildCheck.1.15', buildCheckTmp)   
               if(buildCheckTmp != 0) buildCheck = 1
             }
             if (fs.existsSync('./cb-artifact-1.16/build.check.1.16')) {
               var buildCheckTmp = Number(fs.readFileSync('./cb-artifact-1.16/build.check.1.16', 'utf8'))
-              console.log('buildCheck.1.16', buildCheckTmp)   
+              //console.log('buildCheck.1.16', buildCheckTmp)   
               if(buildCheckTmp != 0) buildCheck = 1
             }            
-            console.log('buildCheck', buildCheck)   
+            //console.log('buildCheck', buildCheck)   
             core.setOutput('buildCheck', buildCheck)   
 
-            var buildErr = ''
-            if (fs.existsSync('./cb-artifact-1.15/build.err.1.15')) {
+            //
+            // BUILD LOG RESULT LOADING
+            //             
+            var buildLog = ''
+            if (fs.existsSync('./cb-artifact-1.15/build.log.1.15')) {
               var buildCheckTmp = Number(fs.readFileSync('./cb-artifact-1.15/build.check.1.15', 'utf8'))
               if(buildCheckTmp == 0) {
-                buildErr += '\nGolang 1.15 Build Success\n'
-                buildErr += '------------------------------\n'
-                buildErr += fs.readFileSync('./cb-artifact-1.15/build.err.1.15', 'utf8')
+                buildLog += '\nGolang 1.15 Build Success\n'
+                buildLog += '------------------------------\n'
+                buildLog += fs.readFileSync('./cb-artifact-1.15/build.log.1.15', 'utf8')
               } else {
-                buildErr += '\nGolang 1.15 Build Error Raised\n'
-                buildErr += '------------------------------\n'
-                buildErr += fs.readFileSync('./cb-artifact-1.15/build.err.1.15', 'utf8')              
+                buildLog += '\nGolang 1.15 Build Error Raised\n'
+                buildLog += '------------------------------\n'
+                buildLog += fs.readFileSync('./cb-artifact-1.15/build.log.1.15', 'utf8')              
               }
             }
-            if (fs.existsSync('./cb-artifact-1.16/build.err.1.16')) {
+            if (fs.existsSync('./cb-artifact-1.16/build.log.1.16')) {
               var buildCheckTmp = Number(fs.readFileSync('./cb-artifact-1.16/build.check.1.16', 'utf8'))
               if(buildCheckTmp == 0) {
-                buildErr += '\nGolang 1.16 Build Success\n'
-                buildErr += '------------------------------\n'
-                buildErr += fs.readFileSync('./cb-artifact-1.16/build.err.1.16', 'utf8')
+                buildLog += '\nGolang 1.16 Build Success\n'
+                buildLog += '------------------------------\n'
+                buildLog += fs.readFileSync('./cb-artifact-1.16/build.log.1.16', 'utf8')
               } else {
-                buildErr += '\nGolang 1.16 Build Error Raised\n'
-                buildErr += '------------------------------\n'
-                buildErr += fs.readFileSync('./cb-artifact-1.16/build.err.1.16', 'utf8')           
+                buildLog += '\nGolang 1.16 Build Error Raised\n'
+                buildLog += '------------------------------\n'
+                buildLog += fs.readFileSync('./cb-artifact-1.16/build.log.1.16', 'utf8')           
               }
             }            
-            console.log('buildErr', buildErr)   
-            core.setOutput('buildErr', buildErr)
+            //console.log('buildLog', buildLog)   
+            core.setOutput('buildLog', buildLog)
 
+            //
+            // DOCKER BUILD CHECK RESULT LOADING
+            // 
             var dockerBuildRun = 0
             var dockerBuildCheck = 0
             if (fs.existsSync('./cb-artifact-deploy/dockerbuild.check')) {
               dockerBuildRun = 1
               dockerBuildCheck = Number(fs.readFileSync('./cb-artifact-deploy/dockerbuild.check', 'utf8'))
             }
-            console.log('dockerBuildRun', dockerBuildRun)   
+            //console.log('dockerBuildRun', dockerBuildRun)   
             core.setOutput('dockerBuildRun', dockerBuildRun)             
-            console.log('dockerBuildCheck', dockerBuildCheck)   
+            //console.log('dockerBuildCheck', dockerBuildCheck)   
             core.setOutput('dockerBuildCheck', dockerBuildCheck)   
 
-            var dockerBuildErr = ''
-            if (fs.existsSync('./cb-artifact-deploy/dockerbuild.err')) {
-              dockerBuildErr = fs.readFileSync('./cb-artifact-deploy/dockerbuild.err', 'utf8')
+            //
+            // DOCKER BUILD LOG RESULT LOADING
+            //             
+            var dockerBuildLog = ''
+            if (fs.existsSync('./cb-artifact-deploy/dockerbuild.log')) {
+              dockerBuildLog = fs.readFileSync('./cb-artifact-deploy/dockerbuild.log', 'utf8')
             }
-            console.log('dockerBuildErr', dockerBuildErr)   
-            core.setOutput('dockerBuildErr', dockerBuildErr)
+            //console.log('dockerBuildLog', dockerBuildLog)   
+            core.setOutput('dockerBuildLog', dockerBuildLog)
 
+            //
+            // DOCKER PUBLISH CHECK RESULT LOADING
+            //             
             var publishRun = 0
             var publishCheck = 0
             if (fs.existsSync('./cb-artifact-deploy/ghcrpublish.check')) {
               publishRun = 1
               var publishCheckTmp = Number(fs.readFileSync('./cb-artifact-deploy/ghcrpublish.check', 'utf8'))
-              console.log('ghcrPublishCheck', publishCheckTmp)   
+              //console.log('ghcrPublishCheck', publishCheckTmp)   
               if(publishCheckTmp != 0) publishCheck = 1
             }
             if (fs.existsSync('./cb-artifact-deploy/dockerpublish.check')) {
               publishRun = 1
               var publishCheckTmp = Number(fs.readFileSync('./cb-artifact-deploy/dockerpublish.check', 'utf8'))
-              console.log('dockerPublishCheck', publishCheckTmp)   
+              //console.log('dockerPublishCheck', publishCheckTmp)   
               if(publishCheckTmp != 0) publishCheck = 1
             }      
-            console.log('publishRun', publishRun)   
+            //console.log('publishRun', publishRun)   
             core.setOutput('publishRun', publishRun)                   
-            console.log('publishCheck', publishCheck)   
+            //console.log('publishCheck', publishCheck)   
             core.setOutput('publishCheck', publishCheck) 
 
-            var publishErr = ''
-            if (fs.existsSync('./cb-artifact-deploy/ghcrpublish.err')) {
+            //
+            // DOCKER PUBLISH LOG RESULT LOADING
+            //  
+            var publishLog = ''
+            if (fs.existsSync('./cb-artifact-deploy/ghcrpublish.log')) {
               var publishCheckTmp = Number(fs.readFileSync('./cb-artifact-deploy/ghcrpublish.check', 'utf8'))
               if(publishCheckTmp == 0) {
-                publishErr += '\nGitHub Container Registry Publish Success\n'
-                publishErr += '------------------------------\n'
-                publishErr += fs.readFileSync('./cb-artifact-deploy/ghcrpublish.err', 'utf8')
+                publishLog += '\nGitHub Container Registry Publish Success\n'
+                publishLog += '------------------------------\n'
+                publishLog += fs.readFileSync('./cb-artifact-deploy/ghcrpublish.log', 'utf8')
               } else {
-                publishErr += '\nGitHub Container Registry Publish Error Raised\n'
-                publishErr += '------------------------------\n'
-                publishErr += fs.readFileSync('./cb-artifact-deploy/ghcrpublish.err', 'utf8')                
+                publishLog += '\nGitHub Container Registry Publish Error Raised\n'
+                publishLog += '------------------------------\n'
+                publishLog += fs.readFileSync('./cb-artifact-deploy/ghcrpublish.log', 'utf8')                
               }
             }
-            if (fs.existsSync('./cb-artifact-deploy/dockerpublish.err')) {
+            if (fs.existsSync('./cb-artifact-deploy/dockerpublish.log')) {
               var publishCheckTmp = Number(fs.readFileSync('./cb-artifact-deploy/dockerpublish.check', 'utf8'))
               if(publishCheckTmp == 0) {
-                publishErr += '\nDocker Hub Publish Success\n'
-                publishErr += '------------------------------\n'
-                publishErr += fs.readFileSync('./cb-artifact-deploy/dockerpublish.err', 'utf8')
+                publishLog += '\nDocker Hub Publish Success\n'
+                publishLog += '------------------------------\n'
+                publishLog += fs.readFileSync('./cb-artifact-deploy/dockerpublish.log', 'utf8')
               } else {
-                publishErr += '\nDocker Hub Publish Error Raised\n'
-                publishErr += '------------------------------\n'
-                publishErr += fs.readFileSync('./cb-artifact-deploy/dockerpublish.err', 'utf8')           
+                publishLog += '\nDocker Hub Publish Error Raised\n'
+                publishLog += '------------------------------\n'
+                publishLog += fs.readFileSync('./cb-artifact-deploy/dockerpublish.log', 'utf8')           
               }
             }            
-            console.log('publishErr', publishErr)   
-            core.setOutput('publishErr', publishErr)      
+            //console.log('publishLog', publishLog)   
+            core.setOutput('publishLog', publishLog)      
 
+            //
+            // SUMMARY REPORT GENERATION
+            //             
             var summaryReport = '# Summary Result\n'
 
-            deadcodeLintCnt = (deadcodelLintResultTxt.match(/(deadcode)/g) || []).length
+            deadcodeLintCnt = (deadcodelLintResultTxt.match(/\(deadcode\)/g) || []).length
             console.log('deadcodeLintCnt', deadcodeLintCnt) 
             core.setOutput('deadcodeLintCnt', deadcodeLintCnt)  
             summaryReport += '- deadcode(lint) : ' + deadcodeLintCnt + ' found\n'
 
-            errcheckLintCnt = (errchecklLintResultTxt.match(/(errcheck)/g) || []).length
+            errcheckLintCnt = (errchecklLintResultTxt.match(/\(errcheck\)/g) || []).length
             console.log('errcheckLintCnt', errcheckLintCnt) 
             core.setOutput('errcheckLintCnt', errcheckLintCnt)  
             summaryReport += '- errcheck(lint) : ' + errcheckLintCnt + ' found\n'    
@@ -233,7 +278,7 @@ jobs:
             core.setOutput('gofmtLintCnt', gofmtLintCnt)  
             summaryReport += '- gofmt(lint) : ' + gofmtLintCnt + ' found\n'       
 
-            reviveLintCnt = (revivelLintResultTxt.match(/(revive)/g) || []).length
+            reviveLintCnt = (revivelLintResultTxt.match(/\(revive\)/g) || []).length
             console.log('reviveLintCnt', reviveLintCnt) 
             core.setOutput('reviveLintCnt', reviveLintCnt)  
             summaryReport += '- revive(lint) : ' + reviveLintCnt + ' found\n'                               
@@ -305,8 +350,12 @@ jobs:
             console.log('summaryReport', summaryReport)   
             core.setOutput('summaryReport', summaryReport)
 
+            //
+            // JSON GENERATION for details information
+            // 
             var publishReport = {}
             publishReport.version = '1.0'
+            publishReport.title = 'CB-LADYBUG Dashboard'
             publishReport.lint = {}
             publishReport.lint.deadcode = {}
             publishReport.lint.deadcode.cnt = deadcodeLintCnt
@@ -323,25 +372,25 @@ jobs:
             publishReport.test = {}      
             publishReport.test.unit = {}   
             publishReport.test.unit.check = coverageCheck     
-            publishReport.test.unit.details = coverageErr 
+            publishReport.test.unit.details = coverageLog
             publishReport.test.unit.allCnt = testCaseAllCnt 
             publishReport.test.unit.failCnt = testCaseFailCnt 
             publishReport.test.coverage = {}
             publishReport.test.coverage.check = coverageCheck     
-            publishReport.test.coverage.details = coverageErr     
+            publishReport.test.coverage.details = coverageLog  
             publishReport.test.coverage.total = coverageTotal     
             publishReport.build = {}
             publishReport.build.check = buildCheck     
-            publishReport.build.details = buildErr     
+            publishReport.build.details = buildLog   
             publishReport.deploy = {}
             publishReport.deploy.dockerBuild = {}
             publishReport.deploy.dockerBuild.run = dockerBuildRun
             publishReport.deploy.dockerBuild.check = dockerBuildCheck
-            publishReport.deploy.dockerBuild.details = dockerBuildErr
+            publishReport.deploy.dockerBuild.details = dockerBuildLog
             publishReport.deploy.publish = {}
             publishReport.deploy.publish.run = publishRun
             publishReport.deploy.publish.check = publishCheck
-            publishReport.deploy.publish.details = publishErr
+            publishReport.deploy.publish.details = publishLog
 
             fs.writeFileSync(reportPath + '/' + context.sha + '.json', JSON.stringify(publishReport), 'utf8');
             fs.copyFileSync('./cb-artifact/coverage.html', reportPath + '/' + context.sha + '.html')
