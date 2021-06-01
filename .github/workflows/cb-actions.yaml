@@ -5,31 +5,6 @@ on:
   pull_request:
 
 jobs:
-  cb-ci-hosted-job:
-    name: CB-CI-HOSTED-JOB
-    runs-on: [self-hosted, linux, X64]
-    steps:
-      - name: Check Environment variable
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-          SECRETS: ${{ toJSON(secrets) }}
-        run: |
-          echo 'workflow starting'
-
-      - name: Make Output Folder
-        run: |
-          mkdir -p ./outputs
-
-      - name: Run Hello World
-        run: |
-          echo "Hello World.." > ./outputs/hello.txt
-
-      - name: Upload Result
-        uses: actions/upload-artifact@v2
-        with:
-          name: cb-artifact-hosted
-          path: outputs/
-
   cb-ci-test-job:
     name: CB-CI-TEST-JOB
     runs-on: ubuntu-latest
@@ -106,6 +81,24 @@ jobs:
             cat ./outputs/revive-lint-result.txt
           fi
 
+      - name: Docker Test
+        run: |
+          pwd
+          cd ${{ github.workspace }}/integration-test/backend
+          ls
+          echo "docker images =============="
+          docker images
+          echo "docker ps =============="
+          docker ps
+          echo "docker compose up =============="
+          docker-compose -f ./docker-compose.yaml up
+          echo "docker ps =============="
+          docker ps
+          echo "docker compose down =============="
+          docker-compose -f ./docker-compose.yaml down
+          echo "docker ps =============="
+          docker ps
+
       - name: Run Coverage
         env:
           CBSTORE_ROOT: ${{ github.workspace }}/integration-test
@@ -119,7 +112,7 @@ jobs:
           GOLANG_PROTOBUF_REGISTRATION_CONFLICT: ignore
         run: |
           pwd
-          cd ./integration-test
+          cd ${{ github.workspace }}/integration-test
           (go test -p 1 -v -coverpkg=$(go list ../... | grep -v integration-test | grep -v protobuf | tr "\n" ",")  -coverprofile=../outputs/coverage.txt ./... > ../outputs/coverage.err 2>&1; echo $? > ../outputs/coverage.check ) || true
           if [ -f "../outputs/coverage.check" ] ; then
             echo "======= coverage.check ======="
