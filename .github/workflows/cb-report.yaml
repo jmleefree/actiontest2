@@ -409,9 +409,10 @@ jobs:
 
       - name: Publish generated content without github clone
         run: |
+          cd cb-publish
           git init
           git remote add origin https://github.com/jmleefree/pagetest1.git
-          git add ./cb-publish
+          git add .
           git commit -m 'add report'
           git push -p origin main
 
