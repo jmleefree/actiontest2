@@ -412,7 +412,7 @@ jobs:
           git config --global user.email "jmleefree@ourtech.co.kr"
           git config --global user.name "jmleefree"
           git init
-          git remote add origin https://jmleefree@github.com/jmleefree/pagetest1.git
+          git remote add origin https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/jmleefree/pagetest1.git
           git add ./cb-publish
           git commit -m 'add report'
           git push -u -f origin HEAD:main
