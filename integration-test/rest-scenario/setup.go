@@ -49,8 +49,8 @@ func init() {
 
 func setUpForRest() {
 
-	//holdStdout = os.Stdout
-	//os.Stdout = os.NewFile(0, os.DevNull)
+	holdStdout = os.Stdout
+	os.Stdout = os.NewFile(0, os.DevNull)
 
 	os.RemoveAll("../meta_db")
 
@@ -163,5 +163,5 @@ func tearDownForRest() {
 
 	os.RemoveAll("../meta_db")
 
-	//os.Stdout = holdStdout
+	os.Stdout = holdStdout
 }

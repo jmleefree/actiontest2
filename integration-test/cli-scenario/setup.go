@@ -58,8 +58,8 @@ func init() {
 
 func setUpForCli() {
 
-	//holdStdout = os.Stdout
-	//os.Stdout = os.NewFile(0, os.DevNull)
+	holdStdout = os.Stdout
+	os.Stdout = os.NewFile(0, os.DevNull)
 
 	os.RemoveAll("../meta_db")
 
@@ -233,6 +233,6 @@ func tearDownForCli() {
 
 	os.RemoveAll("../meta_db")
 
-	//os.Stdout = holdStdout
+	os.Stdout = holdStdout
 	fmt.Printf("======================tearDownForGrpc end...\n")
 }
