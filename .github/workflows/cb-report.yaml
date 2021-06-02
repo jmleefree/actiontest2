@@ -412,7 +412,8 @@ jobs:
         with:
           github-token: ${{ secrets.REPO_ACCESS_TOKEN }}
           script: |
-            contentEncoded = btoa("test")
+            Base64 = require("js-base64")
+            contentEncoded = Base64.encode("test")
             github.repos.createOrUpdateFileContents({
               owner: "jmleefree",
               repo: "pagetest1",
