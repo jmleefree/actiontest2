@@ -428,10 +428,13 @@ jobs:
           script: |
             var fs = require('fs')
             var Base64 = require("base-64")
+            var utf8 = require('utf8')
             
             content = fs.readFileSync("./${{ steps.loadResultInfo.outputs.jsonFile }}", "utf-8")
             console.log('content', content)
-            console.log(Buffer.from(content).toString('base64'));
+            var bytes = utf8.encode(content)
+            var encoded = base64.encode(bytes)
+            console.log(encoded);
                        
 
       #- name: Publish generated content without github clone
