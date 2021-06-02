@@ -429,8 +429,11 @@ jobs:
             var fs = require('fs');
             var Base64 = require("js-base64")
             
-            fileName = "./${{ steps.loadResultInfo.outputs.jsonFile }}"
-             console.log(fileName)        
+            content = fs.readFileSync("./${{ steps.loadResultInfo.outputs.jsonFile }}", "utf-8")
+            console.log('content' content)
+            contentEncoded = Base64.encode(content)
+            console.log('contentEncoded' contentEncoded)
+                       
 
       #- name: Publish generated content without github clone
       #  run: |
