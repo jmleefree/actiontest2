@@ -433,8 +433,7 @@ jobs:
             
             content = fs.readFileSync("./${{ steps.loadResultInfo.outputs.jsonFile }}", "utf-8")
             console.log('content', content)
-            var bytes = utf8.encode(content)
-            var encoded = base64.encode(bytes)
+            var encoded = content.toString('base64');
             console.log(encoded);
                        
 
