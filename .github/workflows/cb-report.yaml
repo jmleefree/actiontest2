@@ -31,11 +31,6 @@ jobs:
           workflow: cb-actions.yaml
           workflow_conclusion: success
 
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - run: npm install -g js-base64
-
       - name: Display structure of downloaded files
         run: ls -R ./cb-*
 
@@ -412,8 +407,13 @@ jobs:
           enable_jekyll: false
           full_commit_message: "test result commit"
 
-      - name: Display structure 
-        run: ls -R /home/runner/work/_actions/actions/github-script/
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: |
+          cd /home/runner/work/_actions/actions/github-script/v3
+          npm install js-base64
+          ls -R
 
       - name: Publish generated content without github clone
         uses: actions/github-script@v3
