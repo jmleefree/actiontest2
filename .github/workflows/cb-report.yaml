@@ -34,7 +34,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - run: npm install js-base64
+      - run: npm install -g js-base64
 
       - name: Display structure of downloaded files
         run: ls -R ./cb-*
