@@ -395,27 +395,27 @@ jobs:
             fs.writeFileSync(reportPath + '/' + context.sha + '.json', JSON.stringify(publishReport), 'utf8');
             fs.copyFileSync('./cb-artifact/coverage.html', reportPath + '/' + context.sha + '.html')
 
-      #- name: Publish generated content to GitHub Pages
-      #  uses: peaceiris/actions-gh-pages@v3
-      #  with:
-      #    personal_token: ${{ secrets.REPO_ACCESS_TOKEN }}
-      #    external_repository: jmleefree/pagetest1
-      #    publish_branch: main
-      #    publish_dir: ./cb-publish
-      #    destination_dir: ./cb-publish
-      #    keep_files: true
-      #    enable_jekyll: false
-      #    full_commit_message: "test result commit"
+      - name: Publish generated content to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          external_repository: jmleefree/pagetest1
+          publish_branch: main
+          publish_dir: ./cb-publish
+          destination_dir: ./cb-publish
+          keep_files: true
+          enable_jekyll: false
+          full_commit_message: "test result commit"
 
-      - name: Publish generated content without github clone
-        run: |
-          git config --global user.email "jmleefree@ourtech.co.kr"
-          git config --global user.name "jmleefree"
-          git init
-          git remote add origin https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/jmleefree/pagetest1.git
-          git add ./cb-publish
-          git commit -m 'add report'
-          git push -u -f origin HEAD:main
+      #- name: Publish generated content without github clone
+      #  run: |
+      #    git config --global user.email "jmleefree@ourtech.co.kr"
+      #    git config --global user.name "jmleefree"
+      #    git init
+      #    git remote add origin https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/jmleefree/pagetest1.git
+      #    git add ./cb-publish
+      #    git commit -m 'add report'
+      #    git push -u -f origin HEAD:main
 
       - name: Publish Summary Results(PR)
         if: ${{ github.event.workflow_run.event == 'pull_request' }}
