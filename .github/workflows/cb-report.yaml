@@ -421,15 +421,52 @@ jobs:
       #- run: |
       #    npm install js-base64
 
-      - name: Publish generated content without github clone
-        uses: actions/github-script@v4
-        with:
-          github-token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          script: |
-            var fs = require('fs');
-             
-            content = fs.readFileSync("./${{ steps.loadResultInfo.outputs.jsonFile }}", {encoding: 'base64'})
-            console.log('content', content) 
+      #- name: Publish generated content without github clone
+      #  uses: actions/github-script@v4
+      #  with:
+      #    github-token: ${{ secrets.REPO_ACCESS_TOKEN }}
+      #    script: |
+      #      var fs = require('fs');
+      #
+      #      content = fs.readFileSync("./${{ steps.loadResultInfo.outputs.jsonFile }}", "utf-8")
+      #      //contentEncoded = Base64.encode(content)
+      #      contentEncoded = ''
+      #      data = github.repos.createOrUpdateFileContents({
+      #        owner: "jmleefree",
+      #        repo: "pagetest1",
+      #        path: "${{ steps.loadResultInfo.outputs.jsonFile }}",
+      #        message: "Add report info",
+      #        content: contentEncoded,
+      #        committer: {
+      #          name: `jmleefree`,
+      #          email: "jmleefree@ourtech.co.kr",
+      #        },
+      #        author: {
+      #          name: `jmleefree`,
+      #          email: "jmleefree@ourtech.co.kr",
+      #        },
+      #      })
+      #      console.log(data)   
+      #      
+      #      content = fs.readFileSync("./${{ steps.loadResultInfo.outputs.htmlFile }}", "utf-8")
+      #      //contentEncoded = Base64.encode(content)
+      #      contentEncoded = ''
+      #      data = github.repos.createOrUpdateFileContents({
+      #        owner: "jmleefree",
+      #        repo: "pagetest1",
+      #        path: "${{ steps.loadResultInfo.outputs.htmlFile }}",
+      #        message: "Add report info",
+      #        content: contentEncoded,
+      #        committer: {
+      #          name: `jmleefree`,
+      #          email: "jmleefree@ourtech.co.kr",
+      #        },
+      #        author: {
+      #          name: `jmleefree`,
+      #          email: "jmleefree@ourtech.co.kr",
+      #        },
+      #      })
+      #      console.log(data)                    
 
       #- name: Publish generated content without github clone
       #  run: |
@@ -440,6 +477,12 @@ jobs:
       #    git add ./cb-publish
       #    git commit -m 'add report'
       #    git push -u -f origin HEAD:main
+
+      - name: Publish generated content without github clone
+        run: |
+        resp=$(base64 ${ steps.loadResultInfo.outputs.jsonFile })
+        echo ${resp}
+ 
 
       - name: Publish Summary Results(PR)
         if: ${{ github.event.workflow_run.event == 'pull_request' }}
