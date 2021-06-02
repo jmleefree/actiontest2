@@ -428,7 +428,7 @@ jobs:
           github-token: ${{ secrets.REPO_ACCESS_TOKEN }}
           script: |
             var fs = require('fs')
-            var Base64 = require("base-64")
+            var base64 = require("base-64")
             var utf8 = require('utf8')
             
             content = fs.readFileSync("./${{ steps.loadResultInfo.outputs.jsonFile }}", "utf-8")
