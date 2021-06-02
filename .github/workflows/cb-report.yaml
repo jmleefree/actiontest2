@@ -416,13 +416,13 @@ jobs:
           #ls -R
 
       - name: Publish generated content without github clone
-        uses: actions/github-script@v3
+        uses: actions/github-script@v4
         with:
           github-token: ${{ secrets.REPO_ACCESS_TOKEN }}
           script: |
             Base64 = __original_require__("js-base64")
             contentEncoded = Base64.encode("test")
-            github.repos.createOrUpdateFileContents({
+            data = github.repos.createOrUpdateFileContents({
               owner: "jmleefree",
               repo: "pagetest1",
               path: "OUTPUT.md",
@@ -436,7 +436,8 @@ jobs:
                 name: `jmleefree`,
                 email: "jmleefree@ourtech.co.kr",
               },
-            })                   
+            })
+            console.log(data)            
 
       #- name: Publish generated content without github clone
       #  run: |
