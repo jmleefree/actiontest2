@@ -480,22 +480,15 @@ jobs:
 
       - name: Publish generated content without github clone
         run: |
-          resp=$(base64 ${{ steps.loadResultInfo.outputs.jsonFile }})
-          content=$(echo '{
-              "repo":"my_repo",
-              "is_production":"true",
-              "maintainer":{
-                "slack_channel":"my_slack_channel",
-                "team_email":"my_team_email@xyz.com"
-              }
-            }' | base64)          
-
+          resp=$(openssl base64 -A -in ${{ steps.loadResultInfo.outputs.jsonFile }})
+           
           curl \
             -X PUT \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.REPO_ACCESS_TOKEN }}" \
+            -H "content-type: application/json" \
             https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.jsonFile }} \
-            -d '{"message":"Add report file","content":"${content}", "committer": {"name": "jmleefree", "email": "jmleefree@ourtech.co.kr"}}'            
+            -d "{\"message\":\"Add report file\",\"content\":\"${resp}\", \"sha\": $(curl -X GET https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.jsonFile }} | jq .sha)}"  
  
 
       - name: Publish Summary Results(PR)
