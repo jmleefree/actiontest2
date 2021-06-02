@@ -415,27 +415,56 @@ jobs:
       #    enable_jekyll: false
       #    full_commit_message: "test result commit"
 
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - run: |
-          npm install base-64
-          npm install utf8
+      #- uses: actions/setup-node@v2
+      #  with:
+      #    node-version: '14'
+      #- run: |
+      #    npm install js-base64
 
       - name: Publish generated content without github clone
         uses: actions/github-script@v4
         with:
           github-token: ${{ secrets.REPO_ACCESS_TOKEN }}
           script: |
-            var fs = require('fs')
-            var base64 = require("base-64")
-            var utf8 = require('utf8')
-            
+            var fs = require('fs');
+             
             content = fs.readFileSync("./${{ steps.loadResultInfo.outputs.jsonFile }}", "utf-8")
-            console.log('content', content)
-            var encoded = content.toString('base64');
-            console.log(encoded);
-                       
+            contentEncoded = content.toString('base64')
+            data = github.repos.createOrUpdateFileContents({
+              owner: "jmleefree",
+              repo: "pagetest1",
+              path: "${{ steps.loadResultInfo.outputs.jsonFile }}",
+              message: "Add report info",
+              content: contentEncoded,
+              committer: {
+                name: `jmleefree`,
+                email: "jmleefree@ourtech.co.kr",
+              },
+              author: {
+                name: `jmleefree`,
+                email: "jmleefree@ourtech.co.kr",
+              },
+            })
+            console.log(data)   
+            
+            content = fs.readFileSync("./${{ steps.loadResultInfo.outputs.htmlFile }}", "utf-8")
+            contentEncoded = content.toString('base64')
+            data = github.repos.createOrUpdateFileContents({
+              owner: "jmleefree",
+              repo: "pagetest1",
+              path: "${{ steps.loadResultInfo.outputs.htmlFile }}",
+              message: "Add report info",
+              content: contentEncoded,
+              committer: {
+                name: `jmleefree`,
+                email: "jmleefree@ourtech.co.kr",
+              },
+              author: {
+                name: `jmleefree`,
+                email: "jmleefree@ourtech.co.kr",
+              },
+            })
+            console.log(data)              
 
       #- name: Publish generated content without github clone
       #  run: |
