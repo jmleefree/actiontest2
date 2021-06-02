@@ -420,6 +420,7 @@ jobs:
           node-version: '14'
       - run: |
           npm install base-64
+          npm install utf8
 
       - name: Publish generated content without github clone
         uses: actions/github-script@v4
