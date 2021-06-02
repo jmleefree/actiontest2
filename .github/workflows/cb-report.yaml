@@ -426,13 +426,13 @@ jobs:
         with:
           github-token: ${{ secrets.REPO_ACCESS_TOKEN }}
           script: |
-            var fs = require('fs');
+            var fs = require('fs')
             var Base64 = require("js-base64")
             
             content = fs.readFileSync("./${{ steps.loadResultInfo.outputs.jsonFile }}", "utf-8")
-            console.log('content' content)
+            console.log('content', content)
             contentEncoded = Base64.encode(content)
-            console.log('contentEncoded' contentEncoded)
+            console.log('contentEncoded', contentEncoded)
                        
 
       #- name: Publish generated content without github clone
