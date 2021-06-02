@@ -411,16 +411,16 @@ jobs:
         with:
           node-version: '14'
       - run: |
-          cd /home/runner/work/_actions/actions/github-script/v3
-          npm install js-base64
-          ls -R
+          #cd /home/runner/work/_actions/actions/github-script/v3
+          npm install -g js-base64
+          #ls -R
 
       - name: Publish generated content without github clone
         uses: actions/github-script@v3
         with:
           github-token: ${{ secrets.REPO_ACCESS_TOKEN }}
           script: |
-            Base64 = require("js-base64")
+            Base64 = __original_require__("js-base64")
             contentEncoded = Base64.encode("test")
             github.repos.createOrUpdateFileContents({
               owner: "jmleefree",
