@@ -419,7 +419,7 @@ jobs:
         with:
           node-version: '14'
       - run: |
-          npm install js-base64
+          npm install base-64
 
       - name: Publish generated content without github clone
         uses: actions/github-script@v4
@@ -427,11 +427,11 @@ jobs:
           github-token: ${{ secrets.REPO_ACCESS_TOKEN }}
           script: |
             var fs = require('fs')
-            var Base64 = require("js-base64")
+            var Base64 = require("base-64")
             
             content = fs.readFileSync("./${{ steps.loadResultInfo.outputs.jsonFile }}", "utf-8")
             console.log('content', content)
-
+            console.log(Buffer.from(content).toString('base64'));
                        
 
       #- name: Publish generated content without github clone
