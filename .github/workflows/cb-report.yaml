@@ -412,6 +412,9 @@ jobs:
           enable_jekyll: false
           full_commit_message: "test result commit"
 
+      - name: Display structure 
+        run: ls /home/runner/work/_actions/actions/github-script/
+
       - name: Publish generated content without github clone
         uses: actions/github-script@v3
         with:
