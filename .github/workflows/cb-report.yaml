@@ -429,42 +429,8 @@ jobs:
             var fs = require('fs');
              
             content = fs.readFileSync("./${{ steps.loadResultInfo.outputs.jsonFile }}", "utf-8")
-            contentEncoded = content.toString('base64')
-            data = github.repos.createOrUpdateFileContents({
-              owner: "jmleefree",
-              repo: "pagetest1",
-              path: "${{ steps.loadResultInfo.outputs.jsonFile }}",
-              message: "Add report info",
-              content: contentEncoded,
-              committer: {
-                name: `jmleefree`,
-                email: "jmleefree@ourtech.co.kr",
-              },
-              author: {
-                name: `jmleefree`,
-                email: "jmleefree@ourtech.co.kr",
-              },
-            })
-            console.log(data)   
-            
-            content = fs.readFileSync("./${{ steps.loadResultInfo.outputs.htmlFile }}", "utf-8")
-            contentEncoded = content.toString('base64')
-            data = github.repos.createOrUpdateFileContents({
-              owner: "jmleefree",
-              repo: "pagetest1",
-              path: "${{ steps.loadResultInfo.outputs.htmlFile }}",
-              message: "Add report info",
-              content: contentEncoded,
-              committer: {
-                name: `jmleefree`,
-                email: "jmleefree@ourtech.co.kr",
-              },
-              author: {
-                name: `jmleefree`,
-                email: "jmleefree@ourtech.co.kr",
-              },
-            })
-            console.log(data)              
+            var buff = new Buffer(content, 'utf8').toString("base64");
+            console.log('buff', buff)
 
       #- name: Publish generated content without github clone
       #  run: |
