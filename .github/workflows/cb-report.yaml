@@ -419,7 +419,7 @@ jobs:
         with:
           node-version: '14'
       - run: |
-          cd /home/runner/work/_actions/actions/github-script/v4
+          #cd /home/runner/work/_actions/actions/github-script/v4
           npm install js-base64
 
       - name: Publish generated content without github clone
