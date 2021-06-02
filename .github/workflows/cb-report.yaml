@@ -307,7 +307,7 @@ jobs:
             core.setOutput('testCaseAllCnt', testCaseAllCnt)  
             console.log('testCaseFailCnt', testCaseFailCnt) 
             core.setOutput('testCaseFailCnt', testCaseFailCnt)  
-            summaryReport += '- junt test : ' + testCaseAllCnt + ' tests, ' + testCaseFailCnt + ' failure\n'
+            summaryReport += '- unit test : ' + testCaseAllCnt + ' tests, ' + testCaseFailCnt + ' failure\n'
 
             if(buildCheck != 0) {
               summaryReport += '- go build : fail\n'
@@ -406,6 +406,28 @@ jobs:
           keep_files: true
           enable_jekyll: false
           full_commit_message: "test result commit"
+
+      - name: Publish generated content without github clone
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          script: |
+            contentEncoded = Base64.encode("test")
+            github.repos.createOrUpdateFileContents({
+              owner: "jmleefree",
+              repo: "pagetest1",
+              path: "OUTPUT.md",
+              message: "feat: Added OUTPUT.md programatically",
+              content: contentEncoded,
+              committer: {
+                name: `jmleefree`,
+                email: "jmleefree@ourtech.co.kr",
+              },
+              author: {
+                name: `jmleefree`,
+                email: "jmleefree@ourtech.co.kr",
+              },
+            })                   
 
       #- name: Publish generated content without github clone
       #  run: |
