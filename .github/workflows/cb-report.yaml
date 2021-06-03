@@ -487,7 +487,9 @@ jobs:
             -H "Authorization: token ${{ secrets.REPO_ACCESS_TOKEN }}" \
             -H "content-type: application/json" \
             https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.jsonFile }} \
-            -d "{\"message\":\"Add report file\",\"content\":\"${resp}\", \"sha\": $(curl -X GET https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.jsonFile }} | jq .sha)}"  
+            -d @- <<CURL_DATA
+{"message":"Add report file", "content":"${resp}", "sha": $(curl -X GET https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.jsonFile }} | jq .sha) }
+CURL_DATA
  
           resp=$(openssl base64 -A -in ${{ steps.loadResultInfo.outputs.htmlFile }})
           curl \
@@ -496,8 +498,10 @@ jobs:
             -H "Authorization: token ${{ secrets.REPO_ACCESS_TOKEN }}" \
             -H "content-type: application/json" \
             https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.htmlFile }} \
-            -d "{\"message\":\"Add report file\",\"content\":\"${resp}\", \"sha\": $(curl -X GET https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.htmlFile }} | jq .sha)}"  
-  
+            -d @- <<CURL_DATA
+{"message":"Add report file", "content":"${resp}", "sha": $(curl -X GET https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.htmlFile }} | jq .sha) }
+CURL_DATA
+
       - name: Publish Summary Results(PR)
         if: ${{ github.event.workflow_run.event == 'pull_request' }}
         uses: peter-evans/create-or-update-comment@v1
