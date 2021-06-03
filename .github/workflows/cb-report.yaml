@@ -481,26 +481,22 @@ jobs:
       - name: Publish generated content without github clone
         run: |
           resp=$(openssl base64 -A -in ${{ steps.loadResultInfo.outputs.jsonFile }})
-          curl \
+          echo "{\"message\":\"Add report file\",\"content\":\"${resp}\", \"sha\": $(curl -X GET https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.jsonFile }} | jq .sha)}" | curl \
             -X PUT \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.REPO_ACCESS_TOKEN }}" \
             -H "content-type: application/json" \
             https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.jsonFile }} \
-            -d @- <<CURL_DATA
-          {"message":"Add report file", "content":"${resp}", "sha": $(curl -X GET https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.jsonFile }} | jq .sha) }
-          CURL_DATA
+            -d @-
  
           resp=$(openssl base64 -A -in ${{ steps.loadResultInfo.outputs.htmlFile }})
-          curl \
+          echo "{\"message\":\"Add report file\",\"content\":\"${resp}\", \"sha\": $(curl -X GET https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.htmlFile }} | jq .sha)}" | curl \
             -X PUT \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.REPO_ACCESS_TOKEN }}" \
             -H "content-type: application/json" \
             https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.htmlFile }} \
-            -d @- <<CURL_DATA
-          {"message":"Add report file", "content":"${resp}", "sha": $(curl -X GET https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.htmlFile }} | jq .sha) }
-          CURL_DATA
+            -d @-
 
       - name: Publish Summary Results(PR)
         if: ${{ github.event.workflow_run.event == 'pull_request' }}
