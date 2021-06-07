@@ -12,6 +12,7 @@ func TestRestApi(t *testing.T) {
 		tc := TestCases{
 			name:             "create cluster",
 			echoFunc:         "CreateCluster",
+			httpMethod:       http.MethodPost,
 			whenURL:          "/ladybug/ns/:namespace/clusters",
 			givenQueryParams: "",
 			givenParaNames:   []string{"namespace"},
@@ -40,7 +41,7 @@ func TestRestApi(t *testing.T) {
 			expectStatus:         http.StatusOK,
 			expectBodyStartsWith: `{"name":"cb-cluster","kind":"Cluster"`,
 		}
-		EchoPostTest(t, tc)
+		EchoTest(t, tc)
 
 		tearDownForRest()
 	})
