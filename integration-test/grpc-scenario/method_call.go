@@ -9,7 +9,6 @@ import (
 	"strings"
 	"testing"
 
-	api "github.com/jmleefree/actiontest2/src/grpc-api/request"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -40,7 +39,7 @@ func Call(any interface{}, name string, params []interface{}) (result string, er
 	return
 }
 
-func MCARMethodTest(t *testing.T, mcar *api.MCARApi, tc TestCases) (string, error) {
+func MethodTest(t *testing.T, tc TestCases) (string, error) {
 
 	var (
 		res string = ""
@@ -49,7 +48,7 @@ func MCARMethodTest(t *testing.T, mcar *api.MCARApi, tc TestCases) (string, erro
 
 	t.Run(tc.name, func(t *testing.T) {
 
-		res, err = Call(mcar, tc.method, tc.args)
+		res, err = Call(tc.instance, tc.method, tc.args)
 		if assert.NoError(t, err) {
 			fmt.Printf("===== result : %s\n", res)
 			if tc.expectResStartsWith != "" {

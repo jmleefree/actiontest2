@@ -4,13 +4,14 @@ import (
 	"testing"
 )
 
-func TestGrpcApi(t *testing.T) {
+func TestGrpcFullDocArg(t *testing.T) {
 	t.Run("grpc api full test for mock driver by doccument args style", func(t *testing.T) {
 		setUpForGrpc()
 
 		tc := TestCases{
-			name:   "create cluster",
-			method: "CreateCluster",
+			name:     "create cluster",
+			instance: mcarApi,
+			method:   "CreateCluster",
 			args: []interface{}{
 				`{
 					"namespace":  "ns-unit-01",
@@ -39,7 +40,7 @@ func TestGrpcApi(t *testing.T) {
 			},
 			expectResStartsWith: `{"name":"cb-cluster","kind":"Cluster"`,
 		}
-		MCARMethodTest(t, mcar, tc)
+		MethodTest(t, tc)
 
 		tearDownForGrpc()
 	})
