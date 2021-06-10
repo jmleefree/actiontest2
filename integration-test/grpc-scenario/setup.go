@@ -74,7 +74,11 @@ func setUpForGrpc() {
 	**/
 	client := resty.New()
 
-	cmd := exec.Command("./start.sh")
+	cmd := exec.Command("./stop.sh")
+	cmd.Dir = "../backend"
+	cmd.Run()
+
+	cmd = exec.Command("./start.sh")
 	cmd.Dir = "../backend"
 	cmd.Start()
 
