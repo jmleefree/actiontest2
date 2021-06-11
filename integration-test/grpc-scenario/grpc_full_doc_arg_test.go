@@ -9,10 +9,10 @@ func TestGrpcFullDocArg(t *testing.T) {
 		SetUpForGrpc()
 
 		tc := TestCases{
-			name:     "create cluster",
-			instance: mcarApi,
-			method:   "CreateCluster",
-			args: []interface{}{
+			Name:     "create cluster",
+			Instance: McarApi,
+			Method:   "CreateCluster",
+			Args: []interface{}{
 				`{
 					"namespace":  "ns-unit-01",
 					"ReqInfo": {
@@ -38,7 +38,7 @@ func TestGrpcFullDocArg(t *testing.T) {
 						}
 				}`,
 			},
-			expectResStartsWith: `{"name":"cb-cluster","kind":"Cluster"`,
+			ExpectResStartsWith: `{"name":"cb-cluster","kind":"Cluster"`,
 		}
 		MethodTest(t, tc)
 

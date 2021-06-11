@@ -37,16 +37,16 @@ import (
 )
 
 type TestCases struct {
-	name                string
-	instance            interface{}
-	method              string
-	args                []interface{}
-	expectResStartsWith string
+	Name                string
+	Instance            interface{}
+	Method              string
+	Args                []interface{}
+	ExpectResStartsWith string
 }
 
 var (
 	holdStdout *os.File     = nil
-	mcarApi    *api.MCARApi = nil
+	McarApi    *api.MCARApi = nil
 	gs         *grpc.Server = nil
 )
 
@@ -177,14 +177,14 @@ func SetUpForGrpc() {
 	/**
 	** Ladybug Grpc API Setup
 	**/
-	mcarApi = api.NewMCARManager()
+	McarApi = api.NewMCARManager()
 
-	err = mcarApi.SetConfigPath("../conf/grpc_conf.yaml")
+	err = McarApi.SetConfigPath("../conf/grpc_conf.yaml")
 	if err != nil {
 		logger.Fatal(err)
 	}
 
-	err = mcarApi.Open()
+	err = McarApi.Open()
 	if err != nil {
 		logger.Fatal(err)
 	}
@@ -231,7 +231,7 @@ func SetUpForGrpc() {
 }
 
 func TearDownForGrpc() {
-	mcarApi.Close()
+	McarApi.Close()
 	gs.Stop()
 
 	cmd := exec.Command("./stop.sh")

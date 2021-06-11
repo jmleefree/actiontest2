@@ -9,8 +9,8 @@ func TestCliFull(t *testing.T) {
 		SetUpForCli()
 
 		tc := TestCases{
-			name: "create cluster",
-			cmdArgs: []string{"cluster", "create", "--config", "../conf/grpc_conf.yaml", "-i", "json", "-o", "json", "-d",
+			Name: "create cluster",
+			CmdArgs: []string{"cluster", "create", "--config", "../conf/grpc_conf.yaml", "-i", "json", "-o", "json", "-d",
 				`{
 					"namespace":  "ns-unit-01",
 					"ReqInfo": {
@@ -36,7 +36,7 @@ func TestCliFull(t *testing.T) {
 						}
 				}`,
 			},
-			expectResStartsWith: `{"name":"cb-cluster","kind":"Cluster"`,
+			ExpectResStartsWith: `{"name":"cb-cluster","kind":"Cluster"`,
 		}
 		LadybugCmdTest(t, tc)
 

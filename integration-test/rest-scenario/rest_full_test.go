@@ -10,14 +10,14 @@ func TestRestFull(t *testing.T) {
 		SetUpForRest()
 
 		tc := TestCases{
-			name:             "create cluster",
-			echoFunc:         "CreateCluster",
-			httpMethod:       http.MethodPost,
-			whenURL:          "/ladybug/ns/:namespace/clusters",
-			givenQueryParams: "",
-			givenParaNames:   []string{"namespace"},
-			givenParaVals:    []string{"ns-unit-01"},
-			givenPostData: `{
+			Name:             "create cluster",
+			EchoFunc:         "CreateCluster",
+			HttpMethod:       http.MethodPost,
+			WhenURL:          "/ladybug/ns/:namespace/clusters",
+			GivenQueryParams: "",
+			GivenParaNames:   []string{"namespace"},
+			GivenParaVals:    []string{"ns-unit-01"},
+			GivenPostData: `{
 													"name": "cb-cluster",
 													"controlPlane" : [{
 														"connection": "mock-unit-config01",
@@ -38,8 +38,8 @@ func TestRestFull(t *testing.T) {
 														}
 													}
 											}`,
-			expectStatus:         http.StatusOK,
-			expectBodyStartsWith: `{"name":"cb-cluster","kind":"Cluster"`,
+			ExpectStatus:         http.StatusOK,
+			ExpectBodyStartsWith: `{"name":"cb-cluster","kind":"Cluster"`,
 		}
 		EchoTest(t, tc)
 
