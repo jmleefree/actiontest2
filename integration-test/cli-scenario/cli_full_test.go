@@ -6,7 +6,7 @@ import (
 
 func TestCliFull(t *testing.T) {
 	t.Run("command full test for mock driver", func(t *testing.T) {
-		setUpForCli()
+		SetUpForCli()
 
 		tc := TestCases{
 			name: "create cluster",
@@ -40,6 +40,6 @@ func TestCliFull(t *testing.T) {
 		}
 		LadybugCmdTest(t, tc)
 
-		tearDownForCli()
+		TearDownForCli()
 	})
 }

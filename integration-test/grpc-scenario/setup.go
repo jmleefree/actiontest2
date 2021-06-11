@@ -62,7 +62,7 @@ func init() {
 	lb_conf.Config.LoglevelHTTP = flag.Bool("log-http", os.Getenv("LOG_HTTP") == "true", "The logging http data")
 }
 
-func setUpForGrpc() {
+func SetUpForGrpc() {
 
 	holdStdout = os.Stdout
 	os.Stdout = os.NewFile(0, os.DevNull)
@@ -230,7 +230,7 @@ func setUpForGrpc() {
 	})
 }
 
-func tearDownForGrpc() {
+func TearDownForGrpc() {
 	mcarApi.Close()
 	gs.Stop()
 

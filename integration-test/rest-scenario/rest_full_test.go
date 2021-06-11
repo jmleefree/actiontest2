@@ -7,7 +7,7 @@ import (
 
 func TestRestFull(t *testing.T) {
 	t.Run("rest api full test for mock driver", func(t *testing.T) {
-		setUpForRest()
+		SetUpForRest()
 
 		tc := TestCases{
 			name:             "create cluster",
@@ -43,7 +43,7 @@ func TestRestFull(t *testing.T) {
 		}
 		EchoTest(t, tc)
 
-		tearDownForRest()
+		TearDownForRest()
 	})
 
 }

@@ -57,7 +57,7 @@ func init() {
 	lb_conf.Config.LoglevelHTTP = flag.Bool("log-http", os.Getenv("LOG_HTTP") == "true", "The logging http data")
 }
 
-func setUpForCli() {
+func SetUpForCli() {
 
 	holdStdout = os.Stdout
 	os.Stdout = os.NewFile(0, os.DevNull)
@@ -210,7 +210,7 @@ func setUpForCli() {
 	})
 }
 
-func tearDownForCli() {
+func TearDownForCli() {
 	gs.Stop()
 
 	cmd := exec.Command("./stop.sh")
