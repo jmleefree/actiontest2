@@ -27,7 +27,6 @@ import (
 	lb_conf "github.com/jmleefree/actiontest2/src/utils/config"
 	"github.com/jmleefree/actiontest2/src/utils/lang"
 
-	api "github.com/jmleefree/actiontest2/src/grpc-api/request"
 	grpc_mcar "github.com/jmleefree/actiontest2/src/grpc-api/server/mcar"
 
 	sshrun "github.com/cloud-barista/cb-spider/cloud-control-manager/vm-ssh"
@@ -43,7 +42,6 @@ type TestCases struct {
 
 var (
 	holdStdout *os.File     = nil
-	mcar       *api.MCARApi = nil
 	gs         *grpc.Server = nil
 )
 
@@ -172,21 +170,6 @@ func setUpForCli() {
 	time.Sleep(time.Second * 2)
 
 	/**
-	** Ladybug Grpc API Setup
-	**/
-	mcar = api.NewMCARManager()
-
-	err = mcar.SetConfigPath("../conf/grpc_conf.yaml")
-	if err != nil {
-		logger.Fatal(err)
-	}
-
-	err = mcar.Open()
-	if err != nil {
-		logger.Fatal(err)
-	}
-
-	/**
 	** Function Patch for Testing
 	**/
 	monkey.Patch(sshrun.SSHRun, func(sshInfo sshrun.SSHInfo, cmd string) (string, error) {
@@ -228,7 +211,6 @@ func setUpForCli() {
 }
 
 func tearDownForCli() {
-	mcar.Close()
 	gs.Stop()
 
 	cmd := exec.Command("./stop.sh")
