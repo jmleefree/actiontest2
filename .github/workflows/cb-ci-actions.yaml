@@ -233,7 +233,7 @@ jobs:
           name: cb-artifact-test
           path: outputs/
 
-cb-ci-gobuild-matrix-job:
+  cb-ci-gobuild-matrix-job:
     name: CB-CI-GOBUILD-MATRIX-JOB
     runs-on: ubuntu-latest
     needs: [cb-env-job]
