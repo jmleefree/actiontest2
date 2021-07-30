@@ -73,14 +73,14 @@ jobs:
             //
             // DEADCODE LINT RESULT LOADING
             //
-            var deadcodelLintRun = 0
-            var deadcodelLintResultTxt = ''
+            var deadcodeLintRun = 0
+            var deadcodeLintResultTxt = ''
             if (fs.existsSync('./cb-artifact-test/deadcode-lint-result.txt')) {
-              deadcodelLintRun = 1
-              deadcodelLintResultTxt = fs.readFileSync('./cb-artifact-test/deadcode-lint-result.txt', 'utf8')
+              deadcodeLintRun = 1
+              deadcodeLintResultTxt = fs.readFileSync('./cb-artifact-test/deadcode-lint-result.txt', 'utf8')
             }
-            //console.log('deadcodelLintResultTxt', deadcodelLintResultTxt)  
-            core.setOutput('deadcodelLintResultTxt', deadcodelLintResultTxt)
+            //console.log('deadcodeLintResultTxt', deadcodeLintResultTxt)  
+            core.setOutput('deadcodeLintResultTxt', deadcodeLintResultTxt)
 
             //
             // ERRCHECK LINT RESULT LOADING
