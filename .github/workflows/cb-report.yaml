@@ -7,14 +7,13 @@ on:
       - completed
 
 jobs:
-  cb-ci-reports-job:
-    name: CB-CI-REPORTS-JOB
+  cb-ci-cd-reports-job:
+    name: CB-CI-CD-REPORTS-JOB
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Download cb-ci-actions-artifact
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        if: ${{ github.event.workflow.workflow == 'CB-CI-ACTIONS-WORKFLOW' }}
         uses: dawidd6/action-download-artifact@v2
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
@@ -22,6 +21,7 @@ jobs:
           workflow_conclusion: success
 
       - name: Download cb-cd-actions-artifact
+        if: ${{ github.event.workflow.workflow == 'CB-CD-ACTIONS-WORKFLOW' }}
         uses: dawidd6/action-download-artifact@v2
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
