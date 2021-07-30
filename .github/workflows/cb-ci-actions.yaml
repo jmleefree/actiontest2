@@ -84,8 +84,11 @@ jobs:
               else title = context.payload.head_commit.message
               
               var matches = title.match(/\[.+?\]/g)
-              console.log('matches', matches)
-              if(matches != null) console.log('matches length', matches.length)
+              if(matches != null) {
+                for (var i = 0; i < matches.length; i++) { 
+                  skip_tags += matches[i]
+                }
+              }
 
               console.log('skip_tags', skip_tags)
               core.setOutput('skip_tags', skip_tags)
@@ -94,7 +97,8 @@ jobs:
 
   cb-ci-shosted-job:
     name: CB-CI-SHOSTED-JOB
-    runs-on: [self-hosted, linux, X64]
+    #runs-on: [self-hosted, linux, X64]
+    runs-on: ubuntu-latest
     needs: [cb-env-job]
     steps:
       - name: Make Output Folder
