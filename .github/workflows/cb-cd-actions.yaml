@@ -81,6 +81,7 @@ jobs:
               console.log('matches', matches)
               if(matches != null) console.log('matches length', matches.length)
 
+              
               console.log('skip_tags', skip_tags)
               core.setOutput('skip_tags', skip_tags)
 
