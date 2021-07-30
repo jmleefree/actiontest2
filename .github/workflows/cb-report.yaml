@@ -383,7 +383,7 @@ jobs:
             !fs.existsSync(reportPath) && fs.mkdirSync(reportPath, { recursive: true })
 
             summaryReport += '\n'
-            summaryReport += '<a href="https://cloud-barista.github.io/poc-cicd-dashboard/index.html?info=' + reportPath + '/' + context.sha + '.json" target="_blank" rel="noopener">[details]</a>\n'
+            summaryReport += '<a href="https://jmleefree.github.io/pagetest1/index.html?info=' + reportPath + '/' + context.sha + '.json" target="_blank" rel="noopener">[details]</a>\n'
 
             console.log('summaryReport', summaryReport)   
             core.setOutput('summaryReport', summaryReport)
@@ -456,21 +456,21 @@ jobs:
       - name: Publish generated content without github clone
         run: |
           resp=$(openssl base64 -A -in ${{ steps.loadResultInfo.outputs.jsonFile }})
-          echo "{\"message\":\"Add report file\",\"content\":\"${resp}\", \"sha\": $(curl -X GET https://api.github.com/repos/cloud-barista/poc-cicd-dashboard/contents/${{ steps.loadResultInfo.outputs.jsonFile }} | jq .sha)}" | curl \
+          echo "{\"message\":\"Add report file\",\"content\":\"${resp}\", \"sha\": $(curl -X GET https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.jsonFile }} | jq .sha)}" | curl \
             -X PUT \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.REPO_ACCESS_TOKEN }}" \
             -H "content-type: application/json" \
-            https://api.github.com/repos/cloud-barista/poc-cicd-dashboard/contents/${{ steps.loadResultInfo.outputs.jsonFile }} \
+            https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.jsonFile }} \
             -d @-
  
           resp=$(openssl base64 -A -in ${{ steps.loadResultInfo.outputs.htmlFile }})
-          echo "{\"message\":\"Add report file\",\"content\":\"${resp}\", \"sha\": $(curl -X GET https://api.github.com/repos/cloud-barista/poc-cicd-dashboard/contents/${{ steps.loadResultInfo.outputs.htmlFile }} | jq .sha)}" | curl \
+          echo "{\"message\":\"Add report file\",\"content\":\"${resp}\", \"sha\": $(curl -X GET https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.htmlFile }} | jq .sha)}" | curl \
             -X PUT \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.REPO_ACCESS_TOKEN }}" \
             -H "content-type: application/json" \
-            https://api.github.com/repos/cloud-barista/poc-cicd-dashboard/contents/${{ steps.loadResultInfo.outputs.htmlFile }} \
+            https://api.github.com/repos/jmleefree/pagetest1/contents/${{ steps.loadResultInfo.outputs.htmlFile }} \
             -d @-
 
       - name: Publish Summary Results(PR)
