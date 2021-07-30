@@ -6,10 +6,7 @@ on:
       - main
       - master
     tags:
-      - "v*.*.*"
-    paths:
-      - "**.go"
-      - ".github/**"
+      - v*.*.*
 
 jobs:
   cb-env-job:
