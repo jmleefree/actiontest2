@@ -77,9 +77,9 @@ jobs:
               var title = ""
               if(context.eventName == "pull_request") title = context.payload.pull_request.title
               else title = context.payload.head_commit.message
-              title.match(/\[.*\]/gi).forEach((element) => {
-                title += element;
-              });
+              var matches = title.match(/\[.*\]/gi)
+              console.log('matches', matches)
+  
 
               console.log('skip_tags', skip_tags)
               core.setOutput('skip_tags', skip_tags)
