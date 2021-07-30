@@ -80,7 +80,6 @@ jobs:
               var matches = title.match(/\[.*\]/gi)
               console.log('matches', matches)
   
-
               console.log('skip_tags', skip_tags)
               core.setOutput('skip_tags', skip_tags)
 
