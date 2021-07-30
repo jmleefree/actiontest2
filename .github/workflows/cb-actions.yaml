@@ -30,6 +30,16 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
 
+      - name: Setup Report Card
+        run: |
+          cd ../..
+          git clone https://github.com/gojp/goreportcard.git   
+          cd goreportcard
+          make install
+          go get -u github.com/client9/misspell/cmd/misspell
+          go install ./cmd/goreportcard-cli
+          cd ${{ github.workspace }}
+
       - name: Setup golangci-lint
         run: |
           curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.39.0
@@ -80,6 +90,11 @@ jobs:
             echo "======= revive-lint-result.txt ======="
             cat ./outputs/revive-lint-result.txt
           fi
+
+      - name: Run Report Card
+        run: |
+          goreportcard-cli -v -j
+          goreportcard-cli -v
 
       - name: Docker Test
         run: |
