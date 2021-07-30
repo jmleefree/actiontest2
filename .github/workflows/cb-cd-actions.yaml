@@ -79,7 +79,7 @@ jobs:
               else title = context.payload.head_commit.message
               var matches = title.match(/\[.*\]/gi)
               console.log('matches', matches)
-              if(!matches) console.log('matches length', matches.length)
+              if(matches != null) console.log('matches length', matches.length)
 
               console.log('skip_tags', skip_tags)
               core.setOutput('skip_tags', skip_tags)
