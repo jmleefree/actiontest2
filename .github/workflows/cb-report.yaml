@@ -264,6 +264,7 @@ jobs:
             //             
             var summaryReport = '# Summary Result\n'
 
+            var deadcodeLintCnt = 0
             if(deadcodeLintRun == 1) {
               deadcodeLintCnt = (deadcodeLintResultTxt.match(/\(deadcode\)/g) || []).length
               console.log('deadcodeLintCnt', deadcodeLintCnt) 
@@ -273,6 +274,7 @@ jobs:
               summaryReport += '- deadcode(lint) : -\n'
             }                
 
+            var errcheckLintCnt = 0
             if(errcheckLintRun == 1) {
               errcheckLintCnt = (errcheckLintResultTxt.match(/\(errcheck\)/g) || []).length
               console.log('errcheckLintCnt', errcheckLintCnt) 
@@ -282,6 +284,7 @@ jobs:
               summaryReport += '- errcheck(lint) : -\n'
             }             
 
+            var staticcheckLintCnt = 0
             if(staticcheckLintRun == 1) {            
               staticcheckLintCnt = (staticcheckLintResultTxt.match(/\(staticcheck\)/g) || []).length
               console.log('staticcheckLintCnt', staticcheckLintCnt) 
@@ -291,7 +294,8 @@ jobs:
               summaryReport += '- staticcheck(lint) : -\n'
             }             
 
-            if(staticcheckLintRun == 1) { 
+            var reviveLintCnt = 0
+            if(reviveLintRun == 1) { 
               reviveLintCnt = (reviveLintResultTxt.match(/\(revive\)/g) || []).length
               console.log('reviveLintCnt', reviveLintCnt) 
               core.setOutput('reviveLintCnt', reviveLintCnt)  
@@ -300,8 +304,10 @@ jobs:
               summaryReport += '- revive(lint) : -\n'
             }                                  
 
+            var coverageTotal = '-'
+            var testCaseAllCnt = 0
+            var testCaseFailCnt = 0
             if(coverageRun == 1) { 
-              var coverageTotal = '-'
               if (fs.existsSync('./cb-artifact-test/coverage.total')) {
                 coverageTotal = fs.readFileSync('./cb-artifact-test/coverage.total', 'utf8')
                 coverageTotal = coverageTotal.trim()
@@ -311,12 +317,10 @@ jobs:
               core.setOutput('coverageTotal', coverageTotal)  
               summaryReport += '- coverage total : ' + coverageTotal + '\n'
 
-              var testCaseAllCnt = 0
               const regexTests = /tests="(.*?)"/g;
               while (current = regexTests.exec(unitTestXml)) {
                 testCaseAllCnt += Number(current.pop())
               }
-              var testCaseFailCnt = 0
               const regexFailures = /failures="(.*?)"/g;
               while (current = regexFailures.exec(unitTestXml)) {
                 testCaseFailCnt += Number(current.pop())
