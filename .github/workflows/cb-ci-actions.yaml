@@ -198,17 +198,19 @@ jobs:
 
       - name: Run Coverage
         env:
-          CBSPIDER_ROOT: ${{ github.workspace }}/integration-test
           CBSTORE_ROOT: ${{ github.workspace }}/integration-test
           CBLOG_ROOT: ${{ github.workspace }}/integration-test
-          LOCALHOST: OFF
-          PLUGIN_SW: OFF
-          MEERKAT: OFF
+          APP_ROOT: ${{ github.workspace }}/integration-test
+          SPIDER_URL: http://localhost:31024/spider
+          TUMBLEBUG_URL: http://localhost:31323/tumblebug
+          BASE_PATH: /ladybug
+          API_USERNAME: default
+          API_PASSWORD: default
+          GOLANG_PROTOBUF_REGISTRATION_CONFLICT: ignore
         run: |
+          pwd
           cd ${{ github.workspace }}/integration-test
-
           (go test -p 1 -v -coverpkg=$(go list ../... | grep -v integration-test | grep -v protobuf | tr "\n" ",")  -coverprofile=../outputs/coverage.txt ./... > ../outputs/coverage.log 2>&1; echo $? > ../outputs/coverage.check ) || true
-          
           if [ -f "../outputs/coverage.check" ] ; then
             echo "======= coverage.check ======="
             cat ../outputs/coverage.check
@@ -221,10 +223,8 @@ jobs:
           #  echo "======= coverage.txt ======="
           #  cat ../outputs/coverage.txt
           #fi
-
           (go tool cover -html=../outputs/coverage.txt -o ../outputs/coverage.html) || true
           (go tool cover -func ../outputs/coverage.txt | grep total | awk '{print $3}' > ../outputs/coverage.total) || true
-
           go get -u github.com/jstemmer/go-junit-report
           cat ../outputs/coverage.log | go-junit-report > ../outputs/unit-tests.xml
           if [ -f "../outputs/unit-tests.xml" ] ; then
@@ -260,7 +260,7 @@ jobs:
       - name: Run Build
         id: build
         run: |
-          (go build -o test ./api-runtime/apiserver.go > ./outputs/build.log 2>&1; echo $? > ./outputs/build.check ) || true
+          (go build -o test ./src/main.go > ./outputs/build.log 2>&1; echo $? > ./outputs/build.check ) || true
           if [ -f "./outputs/build.check" ] ; then
             echo "======= build.check ======="
             cat ./outputs/build.check
