@@ -440,8 +440,12 @@ jobs:
             publishReport.selfhost.check = selfHostCheck     
             publishReport.selfhost.details = selfHostLog             
 
-            fs.writeFileSync(reportPath + '/' + context.sha + '.json', JSON.stringify(publishReport), 'utf8');
-            fs.copyFileSync('./cb-artifact/coverage.html', reportPath + '/' + context.sha + '.html')
+            fs.writeFileSync(reportPath + '/' + context.sha + '.json', JSON.stringify(publishReport), 'utf8')
+            if (fs.existsSync('./cb-artifact-test/coverage.html')) {
+              fs.copyFileSync('./cb-artifact-test/coverage.html', reportPath + '/' + context.sha + '.html')
+            } else {
+              fs.writeFileSync(reportPath + '/' + context.sha + '.html', '', 'utf8')
+            }
 
             console.log('jsonFile', reportPath + '/' + context.sha + '.json')   
             core.setOutput('jsonFile', reportPath + '/' + context.sha + '.json')
