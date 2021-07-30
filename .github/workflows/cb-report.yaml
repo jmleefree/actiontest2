@@ -85,14 +85,14 @@ jobs:
             //
             // ERRCHECK LINT RESULT LOADING
             //          
-            var errchecklLintRun = 0  
-            var errchecklLintResultTxt = ''
+            var errcheckLintRun = 0  
+            var errcheckLintResultTxt = ''
             if (fs.existsSync('./cb-artifact-test/errcheck-lint-result.txt')) {
-              errchecklLintRun = 1
-              errchecklLintResultTxt = fs.readFileSync('./cb-artifact-test/errcheck-lint-result.txt', 'utf8')
+              errcheckLintRun = 1
+              errcheckLintResultTxt = fs.readFileSync('./cb-artifact-test/errcheck-lint-result.txt', 'utf8')
             }
-            //console.log('errchecklLintResultTxt', errchecklLintResultTxt)  
-            core.setOutput('errchecklLintResultTxt', errchecklLintResultTxt) 
+            //console.log('errcheckLintResultTxt', errcheckLintResultTxt)  
+            core.setOutput('errcheckLintResultTxt', errcheckLintResultTxt) 
 
             //
             // STATICCHECK LINT RESULT LOADING
@@ -109,14 +109,14 @@ jobs:
             //
             // REVIVE LINT RESULT LOADING
             //      
-            var revivelLintRun = 0       
-            var revivelLintResultTxt = ''
+            var reviveLintRun = 0       
+            var reviveLintResultTxt = ''
             if (fs.existsSync('./cb-artifact-test/revive-lint-result.txt')) {
-              revivelLintRun = 1
-              revivelLintResultTxt = fs.readFileSync('./cb-artifact-test/revive-lint-result.txt', 'utf8')
+              reviveLintRun = 1
+              reviveLintResultTxt = fs.readFileSync('./cb-artifact-test/revive-lint-result.txt', 'utf8')
             }
-            //console.log('revivelLintResultTxt', revivelLintResultTxt)  
-            core.setOutput('revivelLintResultTxt', revivelLintResultTxt)    
+            //console.log('reviveLintResultTxt', reviveLintResultTxt)  
+            core.setOutput('reviveLintResultTxt', reviveLintResultTxt)    
 
             //
             // UNIT TEST RESULT LOADING
@@ -265,7 +265,7 @@ jobs:
             var summaryReport = '# Summary Result\n'
 
             if(deadcodeLintRun == 1) {
-              deadcodeLintCnt = (deadcodelLintResultTxt.match(/\(deadcode\)/g) || []).length
+              deadcodeLintCnt = (deadcodeLintResultTxt.match(/\(deadcode\)/g) || []).length
               console.log('deadcodeLintCnt', deadcodeLintCnt) 
               core.setOutput('deadcodeLintCnt', deadcodeLintCnt)  
               summaryReport += '- deadcode(lint) : ' + deadcodeLintCnt + ' found\n'
@@ -274,7 +274,7 @@ jobs:
             }                
 
             if(errcheckLintRun == 1) {
-              errcheckLintCnt = (errchecklLintResultTxt.match(/\(errcheck\)/g) || []).length
+              errcheckLintCnt = (errcheckLintResultTxt.match(/\(errcheck\)/g) || []).length
               console.log('errcheckLintCnt', errcheckLintCnt) 
               core.setOutput('errcheckLintCnt', errcheckLintCnt)  
               summaryReport += '- errcheck(lint) : ' + errcheckLintCnt + ' found\n'    
@@ -292,7 +292,7 @@ jobs:
             }             
 
             if(staticcheckLintRun == 1) { 
-              reviveLintCnt = (revivelLintResultTxt.match(/\(revive\)/g) || []).length
+              reviveLintCnt = (reviveLintResultTxt.match(/\(revive\)/g) || []).length
               console.log('reviveLintCnt', reviveLintCnt) 
               core.setOutput('reviveLintCnt', reviveLintCnt)  
               summaryReport += '- revive(lint) : ' + reviveLintCnt + ' found\n'           
@@ -394,11 +394,11 @@ jobs:
             publishReport.lint.deadcode = {}
             publishReport.lint.deadcode.run = deadcodeLintRun
             publishReport.lint.deadcode.cnt = deadcodeLintCnt
-            publishReport.lint.deadcode.details = deadcodelLintResultTxt   
+            publishReport.lint.deadcode.details = deadcodeLintResultTxt   
             publishReport.lint.errcheck = {}
             publishReport.lint.errcheck.run = errcheckLintRun
             publishReport.lint.errcheck.cnt = errcheckLintCnt
-            publishReport.lint.errcheck.details = errchecklLintResultTxt   
+            publishReport.lint.errcheck.details = errcheckLintResultTxt   
             publishReport.lint.staticcheck = {}
             publishReport.lint.staticcheck.run = staticcheckLintRun
             publishReport.lint.staticcheck.cnt = staticcheckLintCnt
@@ -406,7 +406,7 @@ jobs:
             publishReport.lint.revive = {}
             publishReport.lint.revive.run = reviveLintRun
             publishReport.lint.revive.cnt = reviveLintCnt
-            publishReport.lint.revive.details = revivelLintResultTxt    
+            publishReport.lint.revive.details = reviveLintResultTxt    
             publishReport.test = {}      
             publishReport.test.unit = {}   
             publishReport.test.unit.run = coverageRun   
