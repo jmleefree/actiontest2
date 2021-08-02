@@ -2,11 +2,9 @@ name: CB-CD-ACTIONS-WORKFLOW
 
 on:
   push:
-    branches:
+    branches-ignore:
       - main
       - master
-    tags:
-      - "v*.*.*"
 
 jobs:
   cb-env-job:
