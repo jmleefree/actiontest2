@@ -382,8 +382,11 @@ jobs:
 
             !fs.existsSync(reportPath) && fs.mkdirSync(reportPath, { recursive: true })
 
+            var jsonReportFile = context.sha + '_' + context.run_id + '.json'
+            var htmlCoverageFile = context.sha + '_' + context.run_id + '.html'
+
             summaryReport += '\n'
-            summaryReport += '<a href="https://jmleefree.github.io/pagetest1/index.html?info=' + reportPath + '/' + context.sha + '.json" target="_blank" rel="noopener">[details]</a>\n'
+            summaryReport += '<a href="https://jmleefree.github.io/pagetest1/index.html?info=' + reportPath + '/' + jsonReportFile + '" target="_blank" rel="noopener">[details]</a>\n'
 
             console.log('summaryReport', summaryReport)   
             core.setOutput('summaryReport', summaryReport)
@@ -440,18 +443,18 @@ jobs:
             publishReport.selfhost.check = selfHostCheck     
             publishReport.selfhost.details = selfHostLog             
 
-            fs.writeFileSync(reportPath + '/' + context.sha + '.json', JSON.stringify(publishReport), 'utf8')
+            fs.writeFileSync(reportPath + '/' + jsonReportFile, JSON.stringify(publishReport), 'utf8')
             if (fs.existsSync('./cb-artifact-test/coverage.html')) {
-              fs.copyFileSync('./cb-artifact-test/coverage.html', reportPath + '/' + context.sha + '.html')
+              fs.copyFileSync('./cb-artifact-test/coverage.html', reportPath + '/' + htmlCoverageFile)
             } else {
-              fs.writeFileSync(reportPath + '/' + context.sha + '.html', '', 'utf8')
+              fs.writeFileSync(reportPath + '/' + htmlCoverageFile, '', 'utf8')
             }
 
-            console.log('jsonFile', reportPath + '/' + context.sha + '.json')   
-            core.setOutput('jsonFile', reportPath + '/' + context.sha + '.json')
+            console.log('jsonFile', reportPath + '/' + jsonReportFile)   
+            core.setOutput('jsonFile', reportPath + '/' + jsonReportFile)
 
-            console.log('htmlFile', reportPath + '/' + context.sha + '.html')   
-            core.setOutput('htmlFile', reportPath + '/' + context.sha + '.html')            
+            console.log('htmlFile', reportPath + '/' + htmlCoverageFile)   
+            core.setOutput('htmlFile', reportPath + '/' + htmlCoverageFile)            
 
       - name: Publish generated content without github clone
         run: |
