@@ -382,8 +382,8 @@ jobs:
 
             !fs.existsSync(reportPath) && fs.mkdirSync(reportPath, { recursive: true })
 
-            var jsonReportFile = context.sha + '_' + context.run_id + '.json'
-            var htmlCoverageFile = context.sha + '_' + context.run_id + '.html'
+            var jsonReportFile = context.sha + '_' + context.runId + '.json'
+            var htmlCoverageFile = context.sha + '_' + context.runId + '.html'
 
             summaryReport += '\n'
             summaryReport += '<a href="https://jmleefree.github.io/pagetest1/index.html?info=' + reportPath + '/' + jsonReportFile + '" target="_blank" rel="noopener">[details]</a>\n'
