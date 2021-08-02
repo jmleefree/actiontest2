@@ -534,7 +534,7 @@ jobs:
             // 
             var publishReport = {}
             publishReport.version = '1.0'
-            publishReport.title = 'CB-SPIDER Dashboard'
+            publishReport.title = 'Cloud-Barista CI/CD Dashboard'
             publishReport.lint = {}
             publishReport.lint.deadcode = {}
             publishReport.lint.deadcode.run = deadcodeLintRun
